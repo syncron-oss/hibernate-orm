@@ -52,6 +52,7 @@ subprojects { subProject ->
 
     group = 'org.hibernate'
     version = '4.2.15.Final'
+    version = '4.2.15.Syncron'
     
     // The OSGi manifest exported package versions need to be only the numerical release -- no "SNAPSHOT" or "Final"
     exportPackageVersion = version.replaceAll("-SNAPSHOT", "");
