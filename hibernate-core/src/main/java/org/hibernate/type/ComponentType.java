@@ -414,6 +414,8 @@ public class ComponentType extends AbstractType implements CompositeType {
 
 	public Object getPropertyValue(Object component, int i, EntityMode entityMode)
 			throws HibernateException {
+		if (component instanceof Object[])
+			return ((Object[]) component)[i];
 		return componentTuplizer.getPropertyValue( component, i );
 	}
 
@@ -424,6 +426,8 @@ public class ComponentType extends AbstractType implements CompositeType {
 
 	public Object[] getPropertyValues(Object component, EntityMode entityMode)
 			throws HibernateException {
+		if (component instanceof Object[])
+			return (Object[]) component;
 		return componentTuplizer.getPropertyValues( component );
 	}
 
