@@ -76,7 +76,10 @@ public class ValidityAuditStrategy implements AuditStrategy {
             @SuppressWarnings({"unchecked"})
             List<Object> l = qb.toQuery(session).setLockOptions(LockOptions.UPGRADE).list();
 
-            updateLastRevision(session, auditCfg, l, id, auditedEntityName, revision);
+            // BPP-10539 / HHH-8456: support case when AUD data missing /PIOFIN 20130827
+            if (l.size() > 0) {
+                updateLastRevision(session, auditCfg, l, id, auditedEntityName, revision);
+            }
         }
 
         // Save the audit data
