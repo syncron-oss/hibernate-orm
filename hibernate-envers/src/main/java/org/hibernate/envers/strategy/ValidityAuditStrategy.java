@@ -207,9 +207,8 @@ public class ValidityAuditStrategy implements AuditStrategy {
 			);
 
 			if ( rowCount != 1 ) {
-				throw new RuntimeException(
-						"Cannot update previous revision for entity " + auditedEntityName + " and id " + id
-				);
+				// BPP-10539 / HHH-8456: support case when AUD data missing /PIOFIN 20130827
+				// throw new RuntimeException("Cannot update previous revision for entity " + auditedEntityName + " and id " + id);
 			}
 		}
     }
