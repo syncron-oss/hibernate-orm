@@ -259,7 +259,7 @@ public abstract class Loader {
 			QueryParameters parameters,
 			Dialect dialect,
 			List<AfterLoadAction> afterLoadActions) {
-		if ( dialect.useFollowOnLocking() ) {
+		if ( dialect.useFollowOnLocking(parameters) ) {
 			LOG.usingFollowOnLocking();
 			// currently only one lock mode is allowed in follow-on locking
 			final LockMode lockMode = determineFollowOnLockMode( parameters.getLockOptions() );

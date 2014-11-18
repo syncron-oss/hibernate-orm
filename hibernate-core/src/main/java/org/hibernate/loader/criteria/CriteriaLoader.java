@@ -204,7 +204,7 @@ public class CriteriaLoader extends OuterJoinLoader {
 			return sql;
 		}
 
-		if ( dialect.useFollowOnLocking() ) {
+		if ( dialect.useFollowOnLocking(parameters) ) {
 			// Dialect prefers to perform locking in a separate step
 			LOG.usingFollowOnLocking();
 
