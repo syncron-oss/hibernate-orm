@@ -105,6 +105,7 @@ public class BatchingBatch extends AbstractBatchImpl {
 	private void performExecution() {
 		try {
 			for ( Map.Entry<String,PreparedStatement> entry : getStatements().entrySet() ) {
+				String sql = entry.getKey();
 				try {
 					final PreparedStatement statement = entry.getValue();
 					final int[] rowCounts;
@@ -119,13 +120,14 @@ public class BatchingBatch extends AbstractBatchImpl {
 				}
 				catch ( SQLException e ) {
 					abortBatch();
-					throw sqlExceptionHelper().convert( e, "could not execute batch", entry.getKey() );
+					LOG.unableToExecuteBatch( e, sql );
+					throw sqlExceptionHelper().convert( e, "could not execute batch", sql );
+				}
+				catch ( RuntimeException re ) {
+					LOG.unableToExecuteBatch( re, sql );
+					throw re;
 				}
 			}
-		}
-		catch ( RuntimeException re ) {
-			LOG.unableToExecuteBatch( re.getMessage() );
-			throw re;
 		}
 		finally {
 			batchPosition = 0;
