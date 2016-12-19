@@ -27,6 +27,7 @@ import antlr.SemanticException;
 
 import org.hibernate.hql.internal.antlr.HqlSqlTokenTypes;
 import org.hibernate.hql.internal.ast.util.ColumnHelper;
+import org.hibernate.type.BigDecimalRoundingType;
 import org.hibernate.type.StandardBasicTypes;
 import org.hibernate.type.Type;
 
@@ -134,6 +135,9 @@ public class BinaryArithmeticOperatorNode extends AbstractSelectExpression imple
 						return StandardBasicTypes.FLOAT;
 					}
 					if ( lhType==StandardBasicTypes.BIG_DECIMAL || rhType==StandardBasicTypes.BIG_DECIMAL ) {
+						return StandardBasicTypes.BIG_DECIMAL;
+					}
+					if ( lhType instanceof BigDecimalRoundingType || rhType instanceof BigDecimalRoundingType ) {
 						return StandardBasicTypes.BIG_DECIMAL;
 					}
 					if ( lhType==StandardBasicTypes.BIG_INTEGER || rhType==StandardBasicTypes.BIG_INTEGER ) {
